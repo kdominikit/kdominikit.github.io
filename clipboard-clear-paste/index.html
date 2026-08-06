@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipboard Clear Paste</title>
+<meta name="description" content="Paste text without the mess. Strips fonts, colours and hidden junk while keeping headings, lists and tables. Converts Markdown both ways.">
+<style>
+  :root{--bg:#fff;--tx:#1a1d24;--mu:#5b6472;--ac:#2b6cf0;--bd:#e2e6ee;--cd:#f4f6fa;
+        --ok-bg:#eefaf1;--ok-bd:#4caf72}
+  @media (prefers-color-scheme:dark){:root{--bg:#14171d;--tx:#e6e9ef;--mu:#9aa4b4;
+        --ac:#6f9dff;--bd:#2a2f3a;--cd:#1c212b;--ok-bg:#14261c;--ok-bd:#2f6b45}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;
+       font-size:16px;line-height:1.65;padding:0 1.25rem 4rem}
+  .page{max-width:50rem;margin:0 auto}
+
+  header{padding:3rem 0 1.5rem;display:flex;gap:1.25rem;align-items:center;
+         border-bottom:2px solid var(--ac);margin-bottom:2rem;flex-wrap:wrap}
+  header img{width:88px;height:88px;border-radius:18px;flex:none}
+  h1{font-size:2rem;letter-spacing:-.02em;margin-bottom:.2rem}
+  .sub{color:var(--mu);font-size:1.05rem}
+
+  h2{font-size:1.35rem;margin:2.5rem 0 .8rem;padding-bottom:.3rem;
+     border-bottom:1px solid var(--bd)}
+  h3{font-size:1.05rem;margin:1.5rem 0 .3rem}
+  p,ul{margin:.7rem 0}ul{padding-left:1.4rem}li{margin:.35rem 0}
+  a{color:var(--ac)}
+  code,kbd{background:var(--cd);border:1px solid var(--bd);border-radius:4px;
+       padding:.1em .4em;font-family:Consolas,monospace;font-size:.9em}
+  kbd{font-weight:600;white-space:nowrap}
+
+  .cta{display:inline-block;background:var(--ac);color:#fff;text-decoration:none;
+       font-weight:600;padding:.7rem 1.5rem;border-radius:8px;margin:.4rem .5rem .4rem 0}
+  .cta.alt{background:transparent;color:var(--ac);border:1px solid var(--ac)}
+
+  .ok{background:var(--ok-bg);border-left:4px solid var(--ok-bd);
+      border-radius:0 6px 6px 0;padding:.85rem 1.1rem;margin:1.25rem 0}
+  .ok p:first-child{margin-top:0}.ok p:last-child{margin-bottom:0}
+
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.95rem}
+  th,td{border-bottom:1px solid var(--bd);padding:.55rem .7rem;text-align:left;
+        vertical-align:top}
+  th{background:var(--cd);font-weight:600}
+  .scroll{overflow-x:auto}
+
+  footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--bd);
+         color:var(--mu);font-size:.9rem}
+  footer a{margin-right:.9rem}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <img src="assets/icon-256.png" alt="Clipboard Clear Paste">
+  <div>
+    <h1>Clipboard Clear Paste</h1>
+    <p class="sub">Paste text without the mess. Windows tray utility.</p>
+  </div>
+</header>
+
+<p>Copy something from a web page, a Word document or an AI chat, paste it into
+your document, and suddenly the fonts are wrong, the background is grey, and
+there are little citation numbers everywhere. Cleaning that up by hand takes
+longer than writing the text did.</p>
+
+<p><strong>Clipboard Clear Paste fixes it at the moment you paste.</strong>
+Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> instead of
+<kbd>Ctrl</kbd>+<kbd>V</kbd>. Your headings, lists, bold text and tables
+survive. Fonts, colours, borders, CSS classes, Microsoft Office leftovers and
+citation markers do not.</p>
+
+<p>
+  <a class="cta" href="https://apps.microsoft.com/detail/9MTNRJM7HH7P">Get it on Microsoft Store</a>
+  <a class="cta alt" href="help-en.html">User guide</a>
+</p>
+
+<h2>Three ways to paste</h2>
+
+<div class="scroll">
+<table>
+  <tr><th>Shortcut</th><th>What it does</th></tr>
+  <tr>
+    <td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td>
+    <td>Pastes cleaned rich text - structure kept, visual layer removed.
+        Also renders raw Markdown into formatted text.</td>
+  </tr>
+  <tr>
+    <td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd></td>
+    <td>Pastes as plain text. Nothing but the words.</td>
+  </tr>
+  <tr>
+    <td><kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd></td>
+    <td>Pastes as Markdown - headings, lists, tables, links and code blocks
+        in Markdown syntax.</td>
+  </tr>
+</table>
+</div>
+
+<h2>A two-way bridge between AI tools and your documents</h2>
+
+<p>The Markdown conversion runs in both directions, and that is where this tool
+stands apart from single-purpose converters.</p>
+
+<ul>
+  <li><strong>Document to AI:</strong> <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>
+      turns any selection into clean Markdown, ready to drop into a ChatGPT,
+      Claude or Gemini chat window.</li>
+  <li><strong>AI back to document:</strong> paste an answer with
+      <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> and the raw Markdown arrives
+      in Word or Outlook as finished formatted text - headings, lists, bordered
+      tables, bold and working links instead of bare <code>##</code> and
+      <code>**</code> clutter.</li>
+</ul>
+
+<div class="ok">
+<p>Plain-text targets are unaffected. Notepad, VS Code and terminals still
+receive the Markdown exactly as it was, character for character.</p>
+</div>
+
+<h2>Built for technical writing</h2>
+
+<h3>Chemical formulas and units survive</h3>
+<p>H₂SO₄ stays H₂SO₄ and m² stays m², in the formatted paste and in the
+plain-text one. Most cleanup tools flatten subscripts and superscripts.</p>
+
+<h3>Tables paste into Excel as real columns</h3>
+<p>Cells are separated by tabs, so spreadsheets split them correctly instead of
+dumping everything into one cell. Empty cells keep their position.</p>
+
+<h3>Google Docs and Notion keep their formatting</h3>
+<p>Those editors store bold as a CSS style rather than a tag, which is why most
+cleaners silently lose it. This one converts the style into real bold before
+stripping anything.</p>
+
+<h3>Works in any language</h3>
+<p>The cleaning engine is independent of the language of the content. Latin,
+Cyrillic, Greek, Chinese, Japanese, Korean, Arabic, Hebrew, Thai, Devanagari
+and emoji are all handled correctly. The interface itself is available in
+eight languages.</p>
+
+<h2>Built to be trustworthy</h2>
+
+<div class="scroll">
+<table>
+  <tr><th>No internet access</th><td>No network connections of any kind. Not for updates, not for telemetry, not for anything.</td></tr>
+  <tr><th>No clipboard logging</th><td>Text is processed in memory and pasted immediately. Nothing is written to disk.</td></tr>
+  <tr><th>No keyboard monitoring</th><td>Many hotkey tools install a low-level keyboard hook - the same technique keyloggers use. This one does not.</td></tr>
+  <tr><th>No third-party libraries</th><td>One self-contained application: small, fast and easy to audit.</td></tr>
+</table>
+</div>
+
+<p>The only file it ever writes is your own settings.
+<a href="privacy.html">Read the full privacy policy</a>.</p>
+
+<h2>Documents</h2>
+
+<ul>
+  <li><a href="help-en.html">User guide (English)</a></li>
+  <li><a href="help-pl.html">Instrukcja obsługi (polski)</a></li>
+  <li><a href="privacy.html">Privacy policy / Polityka prywatności</a></li>
+  <li><a href="license.html">Licence</a></li>
+  <li><a href="third-party-notices.html">Third-party notices</a></li>
+</ul>
+
+<h2>Requirements</h2>
+<p>Windows 10 version 1809 or later. Installed from Microsoft Store; no
+additional runtime required.</p>
+
+<footer>
+  <p>
+    <a href="../">All applications</a>
+    <a href="https://apps.microsoft.com/detail/9MTNRJM7HH7P">Microsoft Store</a>
+    <a href="mailto:kdominikit@gmail.com">Contact</a>
+  </p>
+  <p>Copyright &copy; 2026 Dominik K. All rights reserved.</p>
+</footer>
+
+</div>
+</body>
+</html>

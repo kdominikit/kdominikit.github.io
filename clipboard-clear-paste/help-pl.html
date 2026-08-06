@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipboard Clear Paste - instrukcja obsługi</title>
+<style>
+  :root {
+    --tlo: #ffffff; --tekst: #1a1d24; --przygaszony: #5b6472;
+    --akcent: #2b6cf0; --ramka: #e2e6ee; --kod-tlo: #f4f6fa;
+    --uwaga-tlo: #fff8e6; --uwaga-ramka: #f0c14b;
+    --dobrze-tlo: #eefaf1; --dobrze-ramka: #4caf72;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --tlo: #14171d; --tekst: #e6e9ef; --przygaszony: #9aa4b4;
+      --akcent: #6f9dff; --ramka: #2a2f3a; --kod-tlo: #1c212b;
+      --uwaga-tlo: #2c2513; --uwaga-ramka: #8a6d1f;
+      --dobrze-tlo: #14261c; --dobrze-ramka: #2f6b45;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 1.25rem 4rem;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.65;
+    color: var(--tekst); background: var(--tlo);
+  }
+  .strona { max-width: 52rem; margin: 0 auto; }
+  header {
+    padding: 2.5rem 0 1.5rem; border-bottom: 2px solid var(--akcent);
+    margin-bottom: 2rem;
+  }
+  h1 { font-size: 1.9rem; margin: 0 0 .35rem; letter-spacing: -.01em; }
+  .podtytul { color: var(--przygaszony); margin: 0; font-size: 1.02rem; }
+  h2 {
+    font-size: 1.35rem; margin: 2.75rem 0 .85rem;
+    padding-bottom: .35rem; border-bottom: 1px solid var(--ramka);
+  }
+  h3 { font-size: 1.1rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { margin: .7rem 0; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: .3rem 0; }
+  code, kbd {
+    font-family: Consolas, "Cascadia Mono", monospace; font-size: .9em;
+    background: var(--kod-tlo); padding: .12em .4em; border-radius: 4px;
+    border: 1px solid var(--ramka);
+  }
+  kbd { font-weight: 600; white-space: nowrap; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--ramka); vertical-align: top; }
+  th { font-weight: 600; background: var(--kod-tlo); }
+  .przewijane { overflow-x: auto; }
+  .blok { border-left: 4px solid; padding: .85rem 1.1rem; margin: 1.25rem 0; border-radius: 0 6px 6px 0; }
+  .uwaga { background: var(--uwaga-tlo); border-color: var(--uwaga-ramka); }
+  .dobrze { background: var(--dobrze-tlo); border-color: var(--dobrze-ramka); }
+  .blok p:first-child { margin-top: 0; } .blok p:last-child { margin-bottom: 0; }
+  nav.spis {
+    background: var(--kod-tlo); border: 1px solid var(--ramka);
+    border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 2rem;
+  }
+  nav.spis ol { margin: .4rem 0 0; }
+  nav.spis a { color: var(--akcent); text-decoration: none; }
+  nav.spis a:hover { text-decoration: underline; }
+  .przyklad {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;
+  }
+  @media (max-width: 40rem) { .przyklad { grid-template-columns: 1fr; } }
+  .przyklad > div {
+    background: var(--kod-tlo); border: 1px solid var(--ramka);
+    border-radius: 6px; padding: .7rem .9rem; font-size: .9rem;
+  }
+  .etykieta {
+    font-size: .75rem; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--przygaszony); font-weight: 600; margin-bottom: .35rem;
+  }
+  footer {
+    margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--ramka);
+    color: var(--przygaszony); font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+<div class="strona">
+
+<header>
+  <h1>Clipboard Clear Paste</h1>
+  <p class="podtytul">Instrukcja obsługi &middot; wersja 1.4.0</p>
+</header>
+
+<p style="margin-bottom:1.5rem"><a href="./" style="color:var(--akcent)">&larr; Strona programu</a></p>
+
+<nav class="spis">
+  <strong>Spis treści</strong>
+  <ol>
+    <li><a href="#czym-jest">Czym jest ten program</a></li>
+    <li><a href="#start">Pierwsze uruchomienie</a></li>
+    <li><a href="#skroty">Trzy skróty klawiszowe</a></li>
+    <li><a href="#opcje">Opcje czyszczenia</a></li>
+    <li><a href="#menu">Menu w zasobniku</a></li>
+    <li><a href="#skroty-zmiana">Zmiana skrótów klawiszowych</a></li>
+    <li><a href="#jezyk">Język interfejsu</a></li>
+    <li><a href="#niespodzianki">Zachowania, które zaskakują</a></li>
+    <li><a href="#problemy">Rozwiązywanie problemów</a></li>
+    <li><a href="#prywatnosc">Prywatność i dane</a></li>
+    <li><a href="#licencja">Licencja</a></li>
+  </ol>
+</nav>
+
+<h2 id="czym-jest">1. Czym jest ten program</h2>
+
+<p>Clipboard Clear Paste usuwa formatowanie ze schowka <strong>w momencie
+wklejania</strong>. Kopiujesz fragment strony internetowej, dokumentu Word albo
+odpowiedź czatu AI, a do swojego dokumentu wklejasz czystą treść - bez obcych
+czcionek, kolorów tła, ramek, numerków przypisów i niewidocznych śmieci, które
+psują później układ tekstu.</p>
+
+<p>Program nie ma okna głównego. Po uruchomieniu siedzi w zasobniku systemowym
+(przy zegarze) i czeka na jeden z trzech skrótów klawiszowych. Nie zużywa
+zauważalnie procesora i nie łączy się z internetem.</p>
+
+<div class="dobrze blok">
+<p><strong>Główna zaleta wobec wbudowanego „wklej bez formatowania”:</strong>
+Windows i Word potrafią wkleić sam tekst, ale wtedy tracisz <em>wszystko</em> -
+nagłówki, listy, pogrubienia, tabele. Clipboard Clear Paste zachowuje strukturę
+dokumentu, a usuwa tylko warstwę wizualną.</p>
+</div>
+
+<h2 id="start">2. Pierwsze uruchomienie</h2>
+
+<p>Po starcie w zasobniku pojawia się niebieska ikona z kartką. Jeśli jej nie
+widzisz, kliknij strzałkę w górę obok zegara - Windows domyślnie ukrywa nowe
+ikony. Możesz ją stamtąd przeciągnąć na stały pasek.</p>
+
+<p>Program jest od razu gotowy do pracy. Domyślnie włączone są dwie opcje:
+<em>Głębokie czyszczenie HTML</em> oraz <em>Renderuj Markdown przy
+wklejaniu</em>; pozostałe są wyłączone. Ustawienia zapamiętują się między
+uruchomieniami.</p>
+
+<h2 id="skroty">3. Trzy skróty klawiszowe</h2>
+
+<p>Skróty działają globalnie - w każdej aplikacji, bez potrzeby przełączania
+się do programu.</p>
+
+<h3><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> - wklej oczyszczony HTML</h3>
+
+<p>Tryb podstawowy i najczęściej używany. Zachowuje strukturę dokumentu,
+usuwa całą warstwę wizualną: atrybuty <code>style</code>, znaczniki
+<code>&lt;font&gt;</code>, klasy CSS, komentarze, skrypty oraz resztki
+generowane przez Microsoft Word.</p>
+
+<div class="przyklad">
+  <div>
+    <div class="etykieta">Przed</div>
+    <code>&lt;p style="color:red;font-family:Calibri"<br>
+    class="MsoNormal"&gt;&lt;font size="4"&gt;<br>
+    Wynik &lt;b&gt;pozytywny&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;</code>
+  </div>
+  <div>
+    <div class="etykieta">Po</div>
+    <code>&lt;p&gt;Wynik &lt;b&gt;pozytywny&lt;/b&gt;&lt;/p&gt;</code>
+  </div>
+</div>
+
+<p>Zachowywane znaczniki: akapity, nagłówki <code>h1</code>-<code>h6</code>,
+listy, pogrubienie, kursywa, podkreślenie, przekreślenie, tabele, obrazy,
+cytaty blokowe, kod, linie poziome oraz <strong>indeksy dolne i górne</strong>.
+Wszystko inne znika, ale <strong>tekst z wnętrza usuwanych znaczników
+pozostaje</strong>.</p>
+
+<div class="dobrze blok">
+<p><strong>Wzory chemiczne i jednostki są bezpieczne.</strong> Zapis
+H<sub>2</sub>SO<sub>4</sub> nie zamieni się w H2SO4, a m<sup>2</sup> w m2.
+Indeksy przechodzą również do wersji tekstowej, jako znaki H₂SO₄ i m².</p>
+</div>
+
+<div class="dobrze blok">
+<p><strong>Działa też z Google Docs i Notion.</strong> Te edytory nie zapisują
+pogrubienia znacznikiem, tylko stylem CSS. Program rozpoznaje to i zamienia na
+prawdziwe pogrubienie, zanim usunie style - dzięki czemu formatowanie nie
+przepada.</p>
+</div>
+
+<div class="dobrze blok">
+<p><strong>Tabele dostają obramowanie.</strong> Czyszczenie usuwa wszystkie
+style, więc tabela trafiłaby do dokumentu bez żadnych linii. Program dokłada
+pojedynczą linię wokół każdej komórki, żeby zachować czytelność. Można to
+wyłączyć w menu opcją <em>Obramuj tabele</em>.</p>
+</div>
+
+<div class="dobrze blok">
+<p><strong>Tabele wklejają się do Excela jako kolumny.</strong> W wersji
+tekstowej komórki są rozdzielone tabulatorem, więc arkusz rozdziela je
+prawidłowo. Puste komórki zachowują swoje miejsce.</p>
+</div>
+
+<div class="dobrze blok">
+<p><strong>Działa też w drugą stronę.</strong> Jeśli w schowku jest surowy
+Markdown - skopiowany z odpowiedzi ChatGPT, Claude czy Gemini, z pliku
+<code>.md</code> albo z Obsidiana - ten sam skrót wklei go do Worda czy
+Outlooka jako <strong>gotowy tekst sformatowany</strong>. Nagłówki, listy,
+tabele, pogrubienia i działające odnośniki zamiast surowych <code>##</code>
+i <code>**</code>.</p>
+<p>Do Notatnika i edytorów kodu nadal trafia niezmieniony Markdown - każda
+aplikacja dostaje to, czego oczekuje.</p>
+<p><strong>Tabele dostają obramowanie</strong> - pojedynczą linię na każdej
+komórce. Markdown nie niesie informacji o wyglądzie, więc bez tego tabela
+w Wordzie wyglądałaby jak kolumny luźnego tekstu.</p>
+</div>
+
+<h3><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> - wklej jako czysty tekst</h3>
+
+<p>Całkowicie usuwa formatowanie. Zostaje goły tekst, bez nagłówków, list
+i pogrubień. Przydatne przy wklejaniu do pól formularzy, edytorów kodu,
+terminali i wszędzie tam, gdzie formatowanie tylko przeszkadza.</p>
+
+<h3><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> - wklej jako Markdown</h3>
+
+<p>Zamienia formatowanie na składnię Markdown. Najbardziej rozbudowany
+tryb - obsługuje elementy, których zwykłe wklejanie nie przenosi.</p>
+
+<div class="dobrze blok">
+<p><strong>Szczególnie przydatne przy pracy z narzędziami sztucznej
+inteligencji.</strong> ChatGPT, Claude, Gemini i Perplexity przyjmują Markdown
+najlepiej ze wszystkich formatów - rozumieją strukturę dokumentu zamiast
+widzieć ścianę tekstu. Zaznaczasz fragment artykułu albo raportu, naciskasz
+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> i wklejasz do okna czatu wraz
+z nagłówkami, listami i tabelami.</p>
+<p>Razem z renderowaniem opisanym wyżej daje to obieg w obie strony: dokument
+&rarr; Markdown &rarr; narzędzie AI, a potem odpowiedź AI &rarr; tekst
+sformatowany &rarr; Word.</p>
+</div>
+
+<div class="przewijane">
+<table>
+<tr><th>Element HTML</th><th>Wynik w Markdown</th></tr>
+<tr><td>Nagłówki <code>h1</code>-<code>h6</code></td><td><code>#</code> do <code>######</code></td></tr>
+<tr><td>Pogrubienie</td><td><code>**tekst**</code></td></tr>
+<tr><td>Kursywa</td><td><code>*tekst*</code></td></tr>
+<tr><td>Przekreślenie</td><td><code>~~tekst~~</code></td></tr>
+<tr><td>Odnośnik</td><td><code>[tekst](adres)</code></td></tr>
+<tr><td>Obraz</td><td><code>![opis](adres)</code></td></tr>
+<tr><td>Lista wypunktowana</td><td><code>- pozycja</code></td></tr>
+<tr><td>Lista numerowana</td><td><code>1. pozycja</code></td></tr>
+<tr><td>Tabela</td><td>tabela Markdown z wierszem separatora</td></tr>
+<tr><td>Cytat blokowy</td><td><code>&gt; tekst</code></td></tr>
+<tr><td>Kod w tekście</td><td><code>`kod`</code></td></tr>
+<tr><td>Blok kodu</td><td>ogrodzenie z trzech znaków <code>`</code>, z nazwą języka</td></tr>
+<tr><td>Linia pozioma</td><td><code>---</code></td></tr>
+</table>
+</div>
+
+<p>Podkreślenie znika, ponieważ Markdown nie ma dla niego składni - zostaje
+sam tekst. Bloki kodu są chronione: ich zawartość nie jest przetwarzana, więc
+gwiazdki i podkreślenia wewnątrz kodu pozostają nietknięte.</p>
+
+<h2 id="opcje">4. Opcje czyszczenia</h2>
+
+<p>Przełączniki w menu zasobnika decydują, co dodatkowo ma zostać usunięte
+i jak program traktuje Markdown. Działają we wszystkich trzech trybach
+wklejania.</p>
+
+<h3>Głębokie czyszczenie HTML <span style="font-weight:400;color:var(--przygaszony)">(domyślnie włączone)</span></h3>
+<p>Najważniejsza opcja. Zostawia wyłącznie znaczniki treści i usuwa z nich
+wszystkie atrybuty. Bez niej program usuwa tylko style i czcionki, a cała
+reszta struktury HTML zostaje. Wyłącz ją, jeśli potrzebujesz zachować
+oryginalny kod z dodatkowymi znacznikami.</p>
+
+<h3>Usuń linki <code>&lt;a&gt;</code></h3>
+<p>Usuwa odnośniki <strong>razem z ich tekstem</strong>. Przykład: zdanie
+„Zobacz <em>tutaj</em> po szczegóły” zamienia się w „Zobacz po szczegóły”.
+Zbędne spacje przed znakami interpunkcyjnymi są sprzątane automatycznie.</p>
+
+<h3>Usuń nawiasy kwadratowe <code>[...]</code></h3>
+<p>Kasuje wszystko w nawiasach kwadratowych razem z poprzedzającym przecinkiem.
+Przeznaczone do tekstów z przypisami w stylu <code>[1]</code>, <code>[2, 3]</code>.
+Uwaga: usunie też nawiasy kwadratowe będące częścią treści.</p>
+
+<h3>Usuń tabele</h3>
+<p>Zamienia tabelę na zwykły tekst - komórki rozdzielone spacją, każdy wiersz
+w nowej linii. Sama treść komórek zostaje zachowana.</p>
+
+<div class="przyklad">
+  <div>
+    <div class="etykieta">Przed</div>
+    <code>| Próbka | Wynik |<br>| A-1 | OK |</code>
+  </div>
+  <div>
+    <div class="etykieta">Po</div>
+    <code>Próbka Wynik<br>A-1 OK</code>
+  </div>
+</div>
+
+<h3>Usuń obrazy <code>&lt;img&gt;</code></h3>
+<p>Domyślnie wyłączone, czyli obrazy są zachowywane. W trybie Markdown obraz
+trafia jako <code>![opis](adres)</code>. Włącz tę opcję, jeśli wklejasz do
+miejsca, gdzie obrazy są niepożądane.</p>
+
+<h3>Renderuj Markdown przy wklejaniu <span style="font-weight:400;color:var(--przygaszony)">(domyślnie włączone)</span></h3>
+<p>Decyduje, czy surowy Markdown ze schowka ma trafiać do edytorów bogatych
+jako tekst sformatowany. Program rozpoznaje tylko zapisy niebudzące
+wątpliwości: nagłówki, tabele z wierszem separatora, bloki kodu, pogrubienia,
+odnośniki i cytaty.</p>
+<p><strong>Listy wymagają co najmniej dwóch pozycji.</strong> Pojedynczy wiersz
+zaczynający się od myślnika to znacznie częściej zdanie niż lista, więc
+zostaje tekstem. Zwykła proza jest bezpieczna - zapisy w rodzaju
+<code>Zakres 3-5 dni</code>, <code>Cena 5 zł * sztuka</code> czy
+<code>nazwa_pliku_test</code> nie zostaną zmienione.</p>
+<p>Jeśli program nie rozpozna żadnej konstrukcji, w ogóle nie ingeruje -
+wykonuje zwykłe wklejenie.</p>
+
+<h3>Dopisz adres źródła</h3>
+<p>Domyślnie wyłączone. Gdy włączysz, pod wklejoną treścią pojawi się adres
+strony, z której pochodzi. Program odczytuje go z danych, które przeglądarka
+sama umieszcza w schowku - nic nie jest dopytywane ani wysyłane.</p>
+<p>Przydatne przy pracy z materiałami źródłowymi: wklejasz fragment i od razu
+masz zapisane, skąd pochodzi. Działa we wszystkich trzech trybach. Jeśli
+skopiowałeś tekst z programu, który nie podaje adresu (na przykład z Worda),
+nic nie zostanie dopisane.</p>
+
+<h3>Czyszczenie wykonywane zawsze</h3>
+<p>Niezależnie od ustawień program zawsze usuwa komentarze HTML, skrypty,
+arkusze stylów, znaczniki Microsoft Office oraz <strong>znaczniki cytatów
+z Perplexity i Google NotebookLM</strong> - te charakterystyczne numerki
+w kółkach, które psują tekst po wklejeniu.</p>
+
+<h2 id="menu">5. Menu w zasobniku</h2>
+
+<p>Kliknij ikonę prawym lub lewym przyciskiem myszy.</p>
+
+<div class="przewijane">
+<table>
+<tr><th>Pozycja</th><th>Działanie</th></tr>
+<tr><td>Zakończ</td><td>Zamyka program i zwalnia skróty klawiszowe</td></tr>
+<tr><td>Osiem przełączników</td><td>Opisane w rozdziale 4; ptaszek oznacza włączone</td></tr>
+<tr><td>Język</td><td>Wybór języka interfejsu lub tryb automatyczny</td></tr>
+<tr><td>Pomoc &rsaquo; Instrukcja obsługi</td><td>Otwiera ten dokument w przeglądarce</td></tr>
+<tr><td>Pomoc &rsaquo; Otwórz plik ustawień</td><td>Otwiera settings.json w domyślnym edytorze; instrukcja jest w środku</td></tr>
+<tr><td>Pomoc &rsaquo; Umowa licencyjna</td><td>Warunki korzystania z programu</td></tr>
+<tr><td>Pomoc &rsaquo; Noty o składnikach obcych</td><td>Informacje licencyjne o użytych komponentach</td></tr>
+<tr><td>O programie</td><td>Numer wersji i lista skrótów</td></tr>
+<tr><td>Uruchamiaj z systemem</td><td>Program wystartuje automatycznie po zalogowaniu</td></tr>
+<tr><td>Wstrzymaj skróty</td><td>Tymczasowo oddaje skróty innym aplikacjom</td></tr>
+</table>
+</div>
+
+<p><strong>Wstrzymaj skróty</strong> przydaje się, gdy inna aplikacja potrzebuje
+tych samych kombinacji. Program nadal działa, ale nie reaguje na klawisze.
+Kliknij ponownie, aby wznowić.</p>
+
+<h2 id="skroty-zmiana">6. Zmiana skrótów klawiszowych</h2>
+
+<p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> bywa już zajęty przez inne
+programy, na przykład Visual Studio Code czy Slack. Skrót globalny je
+przesłania, więc czasem trzeba go zmienić.</p>
+
+<div class="dobrze blok">
+<p><strong>Najprościej:</strong> menu w zasobniku &rsaquo; <em>Pomoc</em>
+&rsaquo; <em>Otwórz plik ustawień</em>. Plik otworzy się w domyślnym edytorze,
+a na jego początku znajdziesz skróconą instrukcję - nie musisz wracać tutaj.</p>
+</div>
+
+<p>Plik powstaje automatycznie przy pierwszym uruchomieniu programu i leży
+w <code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>. Zamknij
+program, zmień jedną z trzech wartości i uruchom ponownie:</p>
+
+<pre style="background:var(--kod-tlo);border:1px solid var(--ramka);border-radius:6px;padding:.8rem 1rem;overflow-x:auto"><code>"hotkey_smart": "ctrl+shift+V",
+"hotkey_plain": "alt+shift+V",
+"hotkey_markdown": "alt+shift+M"</code></pre>
+
+<p>Zapisz plik i uruchom program ponownie.</p>
+
+<h3>Jak zapisywać skróty</h3>
+
+<p>Modyfikator i klawisz rozdzielasz znakiem <code>+</code>. Wielkość liter nie
+ma znaczenia. Skrót musi zawierać co najmniej jeden modyfikator - inaczej
+przechwytywałby zwykłe pisanie.</p>
+
+<div class="przewijane">
+<table>
+<tr><th>Element</th><th>Dozwolone wartości</th></tr>
+<tr><td>Modyfikatory</td><td><code>ctrl</code>, <code>alt</code>, <code>shift</code>, <code>win</code></td></tr>
+<tr><td>Litery i cyfry</td><td><code>A</code>-<code>Z</code>, <code>0</code>-<code>9</code></td></tr>
+<tr><td>Klawisze funkcyjne</td><td><code>F1</code> do <code>F12</code></td></tr>
+<tr><td>Klawiatura numeryczna</td><td><code>NUMPAD0</code> do <code>NUMPAD9</code></td></tr>
+<tr><td>Klawisze nazwane</td><td><code>SPACE</code>, <code>ENTER</code>, <code>TAB</code>, <code>BACKSPACE</code>, <code>ESC</code>, <code>INSERT</code>, <code>DELETE</code>, <code>HOME</code>, <code>END</code>, <code>PGUP</code>, <code>PGDN</code>, <code>LEFT</code>, <code>UP</code>, <code>RIGHT</code>, <code>DOWN</code></td></tr>
+<tr><td>Znaki</td><td><code>;</code> <code>=</code> <code>,</code> <code>-</code> <code>.</code> <code>/</code> <code>[</code> <code>]</code> <code>\</code> <code>'</code> i backtick</td></tr>
+</table>
+</div>
+
+<p>Przykłady poprawnych zapisów: <code>ctrl+alt+V</code>,
+<code>win+shift+V</code>, <code>ctrl+shift+F9</code>,
+<code>ctrl+alt+INSERT</code>.</p>
+
+<div class="uwaga blok">
+<p>Jeśli wpiszesz coś, czego program nie rozumie, przy starcie zobaczysz
+komunikat, a skrót wróci do wartości fabrycznej. Błąd w pliku nigdy nie
+zablokuje uruchomienia.</p>
+</div>
+
+<h2 id="jezyk">7. Język interfejsu</h2>
+
+<p>Domyślnie program wykrywa język systemu Windows. Wybór można zmienić
+w menu <em>Język</em>. Dołączone są: angielski, polski, niemiecki, francuski,
+hiszpański, włoski, japoński i chiński.</p>
+
+<p>Silnik czyszczenia działa <strong>niezależnie od języka treści</strong> -
+poprawnie obsługuje alfabet łaciński, cyrylicę, grekę, pismo chińskie,
+japońskie, koreańskie, arabskie, hebrajskie, tajskie i dewanagari, a także
+emoji. Nie ma znaczenia, w jakim języku jest kopiowany tekst.</p>
+
+<h2 id="niespodzianki">8. Zachowania, które zaskakują</h2>
+
+<div class="dobrze blok">
+<p><strong><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> działa wszędzie.</strong></p>
+<p>Program umieszcza w schowku dwie wersje naraz: sformatowaną i tekstową.
+Aplikacja sama bierze tę, którą rozumie - Outlook, Thunderbird czy Word wezmą
+formatowanie razem z grafiką, a Notatnik, edytor kodu czy terminal dostaną
+czysty tekst. Nie musisz się zastanawiać, którego skrótu użyć.</p>
+</div>
+
+<div class="uwaga blok">
+<p><strong>Odnośniki tracą klikalność już przy ustawieniach domyślnych.</strong></p>
+<p>Przy włączonym głębokim czyszczeniu odnośnik zamienia się w zwykły tekst -
+napis zostaje, ale przestaje być klikalny. Opcja <em>Usuń linki</em> idzie
+dalej i usuwa również sam napis. Jeśli chcesz zachować działające odnośniki,
+wyłącz głębokie czyszczenie albo użyj trybu Markdown, który zapisuje adres
+jawnie jako <code>[tekst](adres)</code>.</p>
+</div>
+
+<div class="uwaga blok">
+<p><strong>Obrazy skopiowane do schowka nie są odtwarzane.</strong></p>
+<p>Program przywraca po sobie poprzednią zawartość schowka, ale obrazy
+(bitmapy) są pomijane. Jeśli w schowku był skopiowany obrazek, po operacji
+przepadnie. Tekst i HTML wracają normalnie.</p>
+</div>
+
+<h2 id="problemy">9. Rozwiązywanie problemów</h2>
+
+<h3>Skrót nie działa</h3>
+<p>Najczęściej zajmuje go inna aplikacja - globalne skróty są wyłączne, więc
+tylko jeden program może mieć daną kombinację. Przy starcie pojawia się wtedy
+komunikat z nazwą kolidującego skrótu. Rozwiązanie: zamknij drugą aplikację
+albo zmień w niej przypisanie klawiszy.</p>
+<p>Sprawdź też, czy skróty nie są wstrzymane - pozycja <em>Wstrzymaj skróty</em>
+w menu miałaby wtedy ptaszek.</p>
+
+<h3>Nic się nie wkleiło</h3>
+<p>Jeśli używasz <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>, sprawdź, czy
+aplikacja docelowa w ogóle przyjmuje formatowany tekst (patrz rozdział 7).
+Jeśli w schowku nie było treści HTML, program wykonuje zwykłe wklejenie.</p>
+
+<h3>Ikona zniknęła z paska</h3>
+<p>Kliknij strzałkę w górę obok zegara - Windows przenosi tam rzadziej używane
+ikony. Możesz ją przeciągnąć z powrotem na stały pasek.</p>
+
+<h3>Przywrócenie ustawień domyślnych</h3>
+<p>Zamknij program i usuń plik
+<code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>.
+Przy następnym starcie wrócą wartości fabryczne.</p>
+
+<h3>Znaczniki cytatów nie są usuwane</h3>
+<p>Program rozpoznaje cytaty Perplexity i NotebookLM po nazwach klas CSS, co
+działa niezależnie od języka. Dodatkowa reguła oparta na opisach dostępności
+rozpoznaje słowa kluczowe angielskie i polskie. Jeśli używasz tych narzędzi
+w innym języku interfejsu, część znaczników może pozostać - pomoże wtedy
+opcja <em>Usuń nawiasy kwadratowe</em>.</p>
+
+<h2 id="prywatnosc">10. Prywatność i dane</h2>
+
+<p>Program działa wyłącznie na Twoim komputerze.</p>
+
+<ul>
+  <li><strong>Nie łączy się z internetem.</strong> Nie wykonuje żadnych
+      połączeń sieciowych.</li>
+  <li><strong>Nie zapisuje zawartości schowka.</strong> Treść jest przetwarzana
+      w pamięci operacyjnej i natychmiast wklejana.</li>
+  <li><strong>Nie zbiera telemetrii</strong> ani statystyk użycia.</li>
+  <li><strong>Nie monitoruje klawiatury.</strong> System powiadamia program
+      wyłącznie o trzech zarejestrowanych kombinacjach klawiszy; żadne inne
+      naciśnięcia nie są widoczne dla programu.</li>
+</ul>
+
+<p>Jedyny zapisywany plik to ustawienia:
+<code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>. Zawiera stan
+przełączników i wybrany język - nic więcej.</p>
+
+<h2 id="licencja">11. Licencja</h2>
+
+<p>Clipboard Clear Paste jest oprogramowaniem komercyjnym.
+Copyright &copy; 2026 Dominik K. Wszelkie prawa zastrzeżone.</p>
+
+<p>Program jest rozprowadzany przez Microsoft Store i licencjonowany na
+<strong>Standardowych Warunkach Licencji Aplikacji Microsoft</strong>. Warunki
+te przedstawia sklep w chwili zakupu; są też stale dostępne pod adresem
+<code>https://aka.ms/storeeula</code>. Do programu nie jest dołączana żadna
+odrębna umowa licencyjna.</p>
+
+<p>Skrót informacji znajdziesz w menu <em>Pomoc &rsaquo; Umowa licencyjna</em>,
+a wykaz składników obcych w <em>Pomoc &rsaquo; Noty o składnikach obcych</em>.</p>
+
+<p>Kontakt: <code>kdominikit@gmail.com</code><br>
+Strona programu: <code>https://kdominikit.github.io/clipboard-clear-paste/</code></p>
+
+<p>Pliki tłumaczeń stanowią dane konfiguracyjne, nie kod programu. Możesz
+swobodnie tworzyć i udostępniać własne tłumaczenia interfejsu.</p>
+
+<footer>
+  Clipboard Clear Paste 1.4.0 &middot; Copyright &copy; 2026 Dominik K.
+</footer>
+
+</div>
+</body>
+</html>

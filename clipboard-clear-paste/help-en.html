@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipboard Clear Paste - User Guide</title>
+<style>
+  :root {
+    --bg: #ffffff; --text: #1a1d24; --muted: #5b6472;
+    --accent: #2b6cf0; --border: #e2e6ee; --code-bg: #f4f6fa;
+    --warn-bg: #fff8e6; --warn-border: #f0c14b;
+    --good-bg: #eefaf1; --good-border: #4caf72;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171d; --text: #e6e9ef; --muted: #9aa4b4;
+      --accent: #6f9dff; --border: #2a2f3a; --code-bg: #1c212b;
+      --warn-bg: #2c2513; --warn-border: #8a6d1f;
+      --good-bg: #14261c; --good-border: #2f6b45;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 1.25rem 4rem;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px; line-height: 1.65;
+    color: var(--text); background: var(--bg);
+  }
+  .page { max-width: 52rem; margin: 0 auto; }
+  header {
+    padding: 2.5rem 0 1.5rem; border-bottom: 2px solid var(--accent);
+    margin-bottom: 2rem;
+  }
+  h1 { font-size: 1.9rem; margin: 0 0 .35rem; letter-spacing: -.01em; }
+  .subtitle { color: var(--muted); margin: 0; font-size: 1.02rem; }
+  h2 {
+    font-size: 1.35rem; margin: 2.75rem 0 .85rem;
+    padding-bottom: .35rem; border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.1rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { margin: .7rem 0; }
+  ul, ol { padding-left: 1.4rem; }
+  li { margin: .3rem 0; }
+  code, kbd {
+    font-family: Consolas, "Cascadia Mono", monospace; font-size: .9em;
+    background: var(--code-bg); padding: .12em .4em; border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  kbd { font-weight: 600; white-space: nowrap; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; background: var(--code-bg); }
+  .scroll { overflow-x: auto; }
+  .box { border-left: 4px solid; padding: .85rem 1.1rem; margin: 1.25rem 0; border-radius: 0 6px 6px 0; }
+  .warn { background: var(--warn-bg); border-color: var(--warn-border); }
+  .good { background: var(--good-bg); border-color: var(--good-border); }
+  .box p:first-child { margin-top: 0; } .box p:last-child { margin-bottom: 0; }
+  nav.toc {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 2rem;
+  }
+  nav.toc ol { margin: .4rem 0 0; }
+  nav.toc a { color: var(--accent); text-decoration: none; }
+  nav.toc a:hover { text-decoration: underline; }
+  .example { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 40rem) { .example { grid-template-columns: 1fr; } }
+  .example > div {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: .7rem .9rem; font-size: .9rem;
+  }
+  .label {
+    font-size: .75rem; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--muted); font-weight: 600; margin-bottom: .35rem;
+  }
+  footer {
+    margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: .9rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Clipboard Clear Paste</h1>
+  <p class="subtitle">User Guide &middot; version 1.4.0</p>
+</header>
+
+<p style="margin-bottom:1.5rem"><a href="./" style="color:var(--accent)">&larr; Back to the product page</a></p>
+
+<nav class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#what">What this program does</a></li>
+    <li><a href="#start">Getting started</a></li>
+    <li><a href="#hotkeys">The three hotkeys</a></li>
+    <li><a href="#options">Cleanup options</a></li>
+    <li><a href="#menu">Tray menu reference</a></li>
+    <li><a href="#hotkey-change">Changing the hotkeys</a></li>
+    <li><a href="#language">Interface language</a></li>
+    <li><a href="#surprises">Behaviour that surprises people</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a></li>
+    <li><a href="#privacy">Privacy and data</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</nav>
+
+<h2 id="what">1. What this program does</h2>
+
+<p>Clipboard Clear Paste strips formatting from the clipboard
+<strong>at the moment you paste</strong>. You copy a chunk of a web page, a Word
+document or an AI chat answer, and what lands in your document is clean content
+- no foreign fonts, background colours, borders, citation markers or invisible
+junk that wrecks your layout later.</p>
+
+<p>The program has no main window. Once running it sits in the notification
+area next to the clock and waits for one of three hotkeys. It uses no
+noticeable CPU and never connects to the internet.</p>
+
+<div class="good box">
+<p><strong>Why not just use "paste as plain text"?</strong>
+Windows and Word can paste text only, but then you lose <em>everything</em> -
+headings, lists, bold, tables. Clipboard Clear Paste keeps the document
+structure and removes only the visual layer.</p>
+</div>
+
+<h2 id="start">2. Getting started</h2>
+
+<p>After launch a blue clipboard icon appears in the notification area. If you
+cannot see it, click the up arrow next to the clock - Windows hides new icons
+by default. You can drag it onto the permanent bar from there.</p>
+
+<p>The program is ready immediately. Two options are enabled by default:
+<em>Deep HTML cleanup</em> and <em>Render Markdown when pasting</em>; the rest
+are off. Your settings are remembered between sessions.</p>
+
+<h2 id="hotkeys">3. The three hotkeys</h2>
+
+<p>The hotkeys work globally, in any application, with no need to switch to
+the program first.</p>
+
+<h3><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> - paste cleaned HTML</h3>
+
+<p>The main mode. Keeps the document structure and removes the entire visual
+layer: <code>style</code> attributes, <code>&lt;font&gt;</code> tags, CSS
+classes, comments, scripts and the leftovers Microsoft Word generates.</p>
+
+<div class="example">
+  <div>
+    <div class="label">Before</div>
+    <code>&lt;p style="color:red;font-family:Calibri"<br>
+    class="MsoNormal"&gt;&lt;font size="4"&gt;<br>
+    Result &lt;b&gt;positive&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;</code>
+  </div>
+  <div>
+    <div class="label">After</div>
+    <code>&lt;p&gt;Result &lt;b&gt;positive&lt;/b&gt;&lt;/p&gt;</code>
+  </div>
+</div>
+
+<p>Tags that survive: paragraphs, headings <code>h1</code>-<code>h6</code>,
+lists, bold, italic, underline, strikethrough, tables, images, block quotes,
+code, horizontal rules and <strong>subscript and superscript</strong>.
+Everything else is removed, but <strong>the text inside removed tags is
+kept</strong>.</p>
+
+<div class="good box">
+<p><strong>Chemical formulas and units are safe.</strong>
+H<sub>2</sub>SO<sub>4</sub> will not turn into H2SO4, nor m<sup>2</sup> into
+m2. The indices carry over to the plain-text version too, as H₂SO₄ and m².</p>
+</div>
+
+<div class="good box">
+<p><strong>Works with Google Docs and Notion.</strong> Those editors do not
+store bold as a tag but as a CSS style. The program recognises this and
+converts it into real bold before stripping the styles, so your formatting
+survives.</p>
+</div>
+
+<div class="good box">
+<p><strong>Tables come out with borders.</strong> Cleaning removes every style,
+so a table would otherwise land in your document without a single line. The
+program adds one thin line around each cell to keep it readable. You can turn
+this off with the <em>Add borders to tables</em> menu option.</p>
+</div>
+
+<div class="good box">
+<p><strong>Tables paste into Excel as columns.</strong> In the plain-text
+version cells are separated by tabs, so spreadsheets split them correctly.
+Empty cells keep their position.</p>
+</div>
+
+<div class="good box">
+<p><strong>It works the other way round too.</strong> When the clipboard holds
+raw Markdown - copied from a ChatGPT, Claude or Gemini answer, from a
+<code>.md</code> file or from Obsidian - the same hotkey pastes it into Word or
+Outlook as <strong>ready formatted text</strong>. Headings, lists, tables, bold
+and working links instead of bare <code>##</code> and <code>**</code>.</p>
+<p>Notepad and code editors still receive the Markdown untouched - every
+application gets what it expects.</p>
+<p><strong>Tables come with borders</strong> - a single line around every cell.
+Markdown carries no appearance information, so without this a table would look
+like columns of loose text in Word.</p>
+</div>
+
+<h3><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> - paste as plain text</h3>
+
+<p>Removes formatting completely. What remains is bare text with no headings,
+lists or bold. Useful for form fields, code editors, terminals and anywhere
+formatting only gets in the way.</p>
+
+<h3><kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> - paste as Markdown</h3>
+
+<p>Converts formatting into Markdown syntax. This is the richest mode - it
+carries across elements that ordinary pasting cannot.</p>
+
+<div class="good box">
+<p><strong>Particularly useful when working with AI tools.</strong> ChatGPT,
+Claude, Gemini and Perplexity handle Markdown better than any other format -
+they see the structure of a document instead of a wall of text. Select a
+passage from an article or report, press
+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> and paste it into the chat window
+complete with headings, lists and tables.</p>
+<p>Together with the rendering described above this closes the loop both ways:
+document &rarr; Markdown &rarr; AI tool, then the AI answer &rarr; formatted
+text &rarr; Word.</p>
+</div>
+
+<div class="scroll">
+<table>
+<tr><th>HTML element</th><th>Markdown output</th></tr>
+<tr><td>Headings <code>h1</code>-<code>h6</code></td><td><code>#</code> through <code>######</code></td></tr>
+<tr><td>Bold</td><td><code>**text**</code></td></tr>
+<tr><td>Italic</td><td><code>*text*</code></td></tr>
+<tr><td>Strikethrough</td><td><code>~~text~~</code></td></tr>
+<tr><td>Link</td><td><code>[text](url)</code></td></tr>
+<tr><td>Image</td><td><code>![alt](url)</code></td></tr>
+<tr><td>Bulleted list</td><td><code>- item</code></td></tr>
+<tr><td>Numbered list</td><td><code>1. item</code></td></tr>
+<tr><td>Table</td><td>Markdown table with separator row</td></tr>
+<tr><td>Block quote</td><td><code>&gt; text</code></td></tr>
+<tr><td>Inline code</td><td><code>`code`</code></td></tr>
+<tr><td>Code block</td><td>triple-backtick fence with language name</td></tr>
+<tr><td>Horizontal rule</td><td><code>---</code></td></tr>
+</table>
+</div>
+
+<p>Underline disappears because Markdown has no syntax for it - the text
+remains. Code blocks are protected: their contents are not processed, so
+asterisks and underscores inside code stay untouched.</p>
+
+<h2 id="options">4. Cleanup options</h2>
+
+<p>The switches in the tray menu decide what else gets removed and how the
+program treats Markdown. They apply to all three paste modes.</p>
+
+<h3>Deep HTML cleanup <span style="font-weight:400;color:var(--muted)">(on by default)</span></h3>
+<p>The most important option. Keeps only content tags and strips every
+attribute from them. Without it the program removes just styles and fonts,
+leaving the rest of the HTML structure intact. Turn it off if you need to
+preserve the original markup.</p>
+
+<h3>Remove links <code>&lt;a&gt;</code></h3>
+<p>Removes hyperlinks <strong>together with their text</strong>. For example
+"See <em>here</em> for details" becomes "See for details". Stray spaces before
+punctuation are cleaned up automatically.</p>
+
+<h3>Remove square brackets <code>[...]</code></h3>
+<p>Deletes anything in square brackets along with a preceding comma. Meant for
+text with citation markers such as <code>[1]</code> or <code>[2, 3]</code>.
+Note that it will also remove square brackets that are part of the content.</p>
+
+<h3>Remove tables</h3>
+<p>Turns a table into plain text - cells separated by spaces, each row on its
+own line. The cell contents themselves are preserved.</p>
+
+<div class="example">
+  <div>
+    <div class="label">Before</div>
+    <code>| Sample | Result |<br>| A-1 | OK |</code>
+  </div>
+  <div>
+    <div class="label">After</div>
+    <code>Sample Result<br>A-1 OK</code>
+  </div>
+</div>
+
+<h3>Remove images <code>&lt;img&gt;</code></h3>
+<p>Off by default, meaning images are kept. In Markdown mode an image becomes
+<code>![alt](url)</code>. Turn this on when pasting somewhere images are
+unwanted.</p>
+
+<h3>Render Markdown when pasting <span style="font-weight:400;color:var(--muted)">(on by default)</span></h3>
+<p>Controls whether raw Markdown from the clipboard reaches rich editors as
+formatted text. The program only recognises notation that leaves no room for
+doubt: headings, tables with a separator row, code blocks, bold, links and
+block quotes.</p>
+<p><strong>Lists need at least two items.</strong> A single line starting with
+a dash is far more often a sentence than a list, so it stays as text. Ordinary
+prose is safe - things like <code>range 3-5 days</code>,
+<code>5 EUR * each</code> or <code>my_file_name</code> are left alone.</p>
+<p>If the program recognises no construct at all, it does not interfere - it
+performs an ordinary paste.</p>
+
+<h3>Append source address</h3>
+<p>Off by default. When enabled, the address of the page the content came from
+is added below the pasted text. The program reads it from data the browser
+itself places on the clipboard - nothing is requested or sent.</p>
+<p>Useful when working with source material: you paste a passage and its origin
+is recorded straight away. Works in all three modes. If you copied from a
+program that supplies no address (Word, for example), nothing is appended.</p>
+
+<h3>Always-on cleanup</h3>
+<p>Regardless of your settings, the program always removes HTML comments,
+scripts, stylesheets, Microsoft Office markup and <strong>citation markers
+from Perplexity and Google NotebookLM</strong> - those circled numbers that
+clutter pasted text.</p>
+
+<h2 id="menu">5. Tray menu reference</h2>
+
+<p>Click the icon with either mouse button.</p>
+
+<div class="scroll">
+<table>
+<tr><th>Item</th><th>Action</th></tr>
+<tr><td>Exit</td><td>Closes the program and releases the hotkeys</td></tr>
+<tr><td>Eight switches</td><td>Described in section 4; a tick means enabled</td></tr>
+<tr><td>Language</td><td>Interface language, or automatic detection</td></tr>
+<tr><td>Help &rsaquo; User guide</td><td>Opens this document in your browser</td></tr>
+<tr><td>Help &rsaquo; Open settings file</td><td>Opens settings.json in your default editor; instructions are inside</td></tr>
+<tr><td>Help &rsaquo; License agreement</td><td>Terms of use</td></tr>
+<tr><td>Help &rsaquo; Third-party notices</td><td>Licensing information for components used</td></tr>
+<tr><td>About</td><td>Version number and hotkey list</td></tr>
+<tr><td>Start with Windows</td><td>Launches the program automatically after you sign in</td></tr>
+<tr><td>Pause hotkeys</td><td>Temporarily hands the hotkeys to other applications</td></tr>
+</table>
+</div>
+
+<p><strong>Pause hotkeys</strong> is handy when another application needs the
+same combinations. The program keeps running but stops reacting to keys. Click
+again to resume.</p>
+
+<h2 id="hotkey-change">6. Changing the hotkeys</h2>
+
+<p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> is already taken by some
+programs, Visual Studio Code and Slack among them. A global hotkey overrides
+them, so you may need to change it.</p>
+
+<div class="good box">
+<p><strong>The easy way:</strong> tray menu &rsaquo; <em>Help</em> &rsaquo;
+<em>Open settings file</em>. It opens in your default editor and the top of the
+file carries a short set of instructions - no need to come back here.</p>
+</div>
+
+<p>The file is created automatically the first time the program runs and lives
+in <code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>. Close the
+program, change one of the three values and start it again:</p>
+
+<pre style="background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:.8rem 1rem;overflow-x:auto"><code>"hotkey_smart": "ctrl+shift+V",
+"hotkey_plain": "alt+shift+V",
+"hotkey_markdown": "alt+shift+M"</code></pre>
+
+<p>Save the file and start the program again.</p>
+
+<h3>How to write a hotkey</h3>
+
+<p>Separate modifiers and the key with <code>+</code>. Case does not matter.
+A hotkey must contain at least one modifier, otherwise it would intercept
+ordinary typing.</p>
+
+<div class="scroll">
+<table>
+<tr><th>Element</th><th>Accepted values</th></tr>
+<tr><td>Modifiers</td><td><code>ctrl</code>, <code>alt</code>, <code>shift</code>, <code>win</code></td></tr>
+<tr><td>Letters and digits</td><td><code>A</code>-<code>Z</code>, <code>0</code>-<code>9</code></td></tr>
+<tr><td>Function keys</td><td><code>F1</code> to <code>F12</code></td></tr>
+<tr><td>Numeric keypad</td><td><code>NUMPAD0</code> to <code>NUMPAD9</code></td></tr>
+<tr><td>Named keys</td><td><code>SPACE</code>, <code>ENTER</code>, <code>TAB</code>, <code>BACKSPACE</code>, <code>ESC</code>, <code>INSERT</code>, <code>DELETE</code>, <code>HOME</code>, <code>END</code>, <code>PGUP</code>, <code>PGDN</code>, <code>LEFT</code>, <code>UP</code>, <code>RIGHT</code>, <code>DOWN</code></td></tr>
+<tr><td>Punctuation</td><td><code>;</code> <code>=</code> <code>,</code> <code>-</code> <code>.</code> <code>/</code> <code>[</code> <code>]</code> <code>\</code> <code>'</code> and backtick</td></tr>
+</table>
+</div>
+
+<p>Valid examples: <code>ctrl+alt+V</code>, <code>win+shift+V</code>,
+<code>ctrl+shift+F9</code>, <code>ctrl+alt+INSERT</code>.</p>
+
+<div class="warn box">
+<p>If you enter something the program does not understand, you will see a
+message at startup and that hotkey reverts to its factory value. A mistake in
+the file can never prevent the program from starting.</p>
+</div>
+
+<h2 id="language">7. Interface language</h2>
+
+<p>By default the program follows your Windows display language. You can change
+it in the <em>Language</em> menu. Included: English, Polish, German, French,
+Spanish, Italian, Japanese and Chinese.</p>
+
+<p>The cleaning engine itself is <strong>independent of the content
+language</strong>. It correctly handles Latin, Cyrillic, Greek, Chinese,
+Japanese, Korean, Arabic, Hebrew, Thai and Devanagari scripts, as well as
+emoji. It makes no difference what language you copy.</p>
+
+<h2 id="surprises">8. Behaviour that surprises people</h2>
+
+<div class="good box">
+<p><strong><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> works everywhere.</strong></p>
+<p>The program puts two versions on the clipboard at once: formatted and plain.
+Each application takes the one it understands - Outlook, Thunderbird and Word
+take the formatting along with images, while Notepad, code editors and
+terminals get clean text. You never have to think about which hotkey to use.</p>
+</div>
+
+<div class="warn box">
+<p><strong>Links stop being clickable even with default settings.</strong></p>
+<p>With deep cleanup enabled a hyperlink becomes ordinary text - the label
+stays but is no longer clickable. The <em>Remove links</em> option goes
+further and deletes the label too. To keep working links, either turn off deep
+cleanup or use Markdown mode, which writes the address out explicitly as
+<code>[text](url)</code>.</p>
+</div>
+
+<div class="warn box">
+<p><strong>Images on the clipboard are not restored.</strong></p>
+<p>The program puts your previous clipboard contents back afterwards, but
+bitmaps are skipped. If you had an image on the clipboard it will be lost.
+Text and HTML are restored normally.</p>
+</div>
+
+<h2 id="troubleshooting">9. Troubleshooting</h2>
+
+<h3>A hotkey does not work</h3>
+<p>Usually another application has claimed it - global hotkeys are exclusive,
+so only one program can own a given combination. When this happens you get a
+message at startup naming the conflicting hotkey. Either close the other
+application or rebind its keys.</p>
+<p>Also check that the hotkeys are not paused - the <em>Pause hotkeys</em> menu
+item would show a tick.</p>
+
+<h3>Nothing was pasted</h3>
+<p>If you used <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd>, check whether the
+target application accepts formatted text at all (see section 7). If the
+clipboard held no HTML, the program performs an ordinary paste instead.</p>
+
+<h3>The icon disappeared from the taskbar</h3>
+<p>Click the up arrow next to the clock - Windows moves less-used icons there.
+You can drag it back onto the permanent bar.</p>
+
+<h3>Restoring default settings</h3>
+<p>Close the program and delete
+<code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>.
+Factory values return on the next start.</p>
+
+<h3>Citation markers are not removed</h3>
+<p>The program recognises Perplexity and NotebookLM citations by their CSS
+class names, which works in any language. An additional rule based on
+accessibility labels recognises English and Polish keywords. If you use those
+tools with a different interface language, some markers may remain - the
+<em>Remove square brackets</em> option helps in that case.</p>
+
+<h2 id="privacy">10. Privacy and data</h2>
+
+<p>The program runs entirely on your computer.</p>
+
+<ul>
+  <li><strong>No internet access.</strong> It makes no network connections
+      whatsoever.</li>
+  <li><strong>Clipboard contents are never saved.</strong> Text is processed in
+      memory and pasted immediately.</li>
+  <li><strong>No telemetry</strong> or usage statistics are collected.</li>
+  <li><strong>No keyboard monitoring.</strong> Windows notifies the program
+      only about the three registered key combinations; no other keystroke is
+      visible to it.</li>
+</ul>
+
+<p>The only file written is your settings:
+<code>%LOCALAPPDATA%\ClipboardClearPaste\settings.json</code>. It contains the
+state of the switches and your chosen language - nothing else.</p>
+
+<h2 id="license">11. License</h2>
+
+<p>Clipboard Clear Paste is commercial software.
+Copyright &copy; 2026 Dominik K. All rights reserved.</p>
+
+<p>The application is distributed through Microsoft Store and licensed under
+the <strong>Microsoft Standard Application License Terms</strong>. Those terms
+are presented by the Store at the moment of purchase and are available at any
+time at <code>https://aka.ms/storeeula</code>. No separate end user licence
+agreement is supplied with the application.</p>
+
+<p>A summary is available from <em>Help &rsaquo; License agreement</em>, and
+the list of third-party components from <em>Help &rsaquo; Third-party
+notices</em>.</p>
+
+<p>Contact: <code>kdominikit@gmail.com</code><br>
+Project page: <code>https://kdominikit.github.io/clipboard-clear-paste/</code></p>
+
+<p>Translation files are configuration data, not program code. You are free to
+create and share your own interface translations.</p>
+
+<footer>
+  Clipboard Clear Paste 1.4.0 &middot; Copyright &copy; 2026 Dominik K.
+</footer>
+
+</div>
+</body>
+</html>

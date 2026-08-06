@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDominik - Windows applications</title>
+<meta name="description" content="Small, focused Windows utilities. No telemetry, no network access, no third-party libraries.">
+<style>
+  :root{--bg:#fff;--tx:#1a1d24;--mu:#5b6472;--ac:#2b6cf0;--bd:#e2e6ee;--cd:#f4f6fa}
+  @media (prefers-color-scheme:dark){:root{--bg:#14171d;--tx:#e6e9ef;--mu:#9aa4b4;
+        --ac:#6f9dff;--bd:#2a2f3a;--cd:#1c212b}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,sans-serif;
+       font-size:16px;line-height:1.65;padding:0 1.25rem 4rem}
+  .page{max-width:50rem;margin:0 auto}
+
+  header{padding:3.5rem 0 1.5rem;border-bottom:2px solid var(--ac);margin-bottom:2rem}
+  h1{font-size:2.1rem;letter-spacing:-.02em;margin-bottom:.3rem}
+  .sub{color:var(--mu);font-size:1.08rem}
+
+  h2{font-size:1.35rem;margin:2.5rem 0 1rem;padding-bottom:.3rem;
+     border-bottom:1px solid var(--bd)}
+  p,ul{margin:.7rem 0}ul{padding-left:1.4rem}li{margin:.35rem 0}
+  a{color:var(--ac)}
+
+  .karta{display:flex;gap:1.25rem;align-items:flex-start;background:var(--cd);
+         border:1px solid var(--bd);border-radius:12px;padding:1.4rem;
+         margin-bottom:1.25rem;flex-wrap:wrap}
+  .karta img{width:72px;height:72px;border-radius:15px;flex:none}
+  .karta .opis{flex:1;min-width:16rem}
+  .karta h3{font-size:1.2rem;margin-bottom:.25rem}
+  .karta h3 a{text-decoration:none}
+  .karta p{margin:.35rem 0 .7rem;color:var(--tx)}
+  .odn a{display:inline-block;margin:.15rem .8rem .15rem 0;font-size:.92rem}
+  .sklep{display:inline-block;background:var(--ac);color:#fff!important;
+         text-decoration:none;font-weight:600;padding:.45rem 1rem;
+         border-radius:7px;font-size:.92rem;margin:.15rem .8rem .15rem 0}
+
+  .wkrotce{opacity:.6}
+  .wkrotce .etykieta{display:inline-block;background:var(--bd);color:var(--mu);
+         font-size:.78rem;padding:.15rem .55rem;border-radius:5px;
+         margin-left:.5rem;vertical-align:middle}
+
+  footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--bd);
+         color:var(--mu);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>KDominik</h1>
+  <p class="sub">Small, focused Windows utilities</p>
+</header>
+
+<p>Tools that do one thing and stay out of the way. Every application here runs
+entirely on your computer: <strong>no network access, no telemetry, no
+third-party libraries</strong>. Each one ships with its own privacy policy and
+third-party notices, linked below.</p>
+
+<h2>Applications</h2>
+
+<div class="karta">
+  <img src="clipboard-clear-paste/assets/icon-256.png" alt="Clipboard Clear Paste">
+  <div class="opis">
+    <h3><a href="clipboard-clear-paste/">Clipboard Clear Paste</a></h3>
+    <p>Paste text without the mess. Strips fonts, colours and hidden junk while
+    keeping headings, lists and tables. Converts Markdown in both directions -
+    document to AI tools and back again.</p>
+    <div class="odn">
+      <a class="sklep" href="https://apps.microsoft.com/detail/9MTNRJM7HH7P">Microsoft Store</a>
+      <a href="clipboard-clear-paste/">Details</a>
+      <a href="clipboard-clear-paste/help-en.html">User guide</a>
+      <a href="clipboard-clear-paste/privacy.html">Privacy</a>
+      <a href="clipboard-clear-paste/license.html">Licence</a>
+      <a href="clipboard-clear-paste/third-party-notices.html">Third-party notices</a>
+    </div>
+  </div>
+</div>
+
+<!--
+  WZORZEC DLA KOLEJNEJ APLIKACJI
+  Odkomentuj poniższy blok i uzupełnij: nazwę katalogu, tytuł, opis i adres
+  w sklepie. Ikonę wrzuć do <katalog-aplikacji>/assets/icon-256.png.
+  Klasa "wkrotce" przygasza kartę - zostaw ją, dopóki aplikacji nie ma
+  jeszcze w sklepie, potem usuń.
+
+<div class="karta wkrotce">
+  <img src="KATALOG-APLIKACJI/assets/icon-256.png" alt="NAZWA">
+  <div class="opis">
+    <h3><a href="KATALOG-APLIKACJI/">NAZWA</a>
+        <span class="etykieta">in preparation</span></h3>
+    <p>Jedno zdanie o tym, co robi.</p>
+    <div class="odn">
+      <a class="sklep" href="https://apps.microsoft.com/detail/XXXXXXXXXX">Microsoft Store</a>
+      <a href="KATALOG-APLIKACJI/">Details</a>
+      <a href="KATALOG-APLIKACJI/privacy.html">Privacy</a>
+      <a href="KATALOG-APLIKACJI/license.html">Licence</a>
+    </div>
+  </div>
+</div>
+-->
+
+<h2>Contact</h2>
+<p>E-mail: <a href="mailto:kdominikit@gmail.com">kdominikit@gmail.com</a><br>
+GitHub: <a href="https://github.com/kdominikit">github.com/kdominikit</a></p>
+
+<footer>
+  <p>Copyright &copy; 2026 Dominik K. All rights reserved.</p>
+</footer>
+
+</div>
+</body>
+</html>
