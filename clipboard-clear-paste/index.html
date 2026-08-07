@@ -47,6 +47,21 @@
   footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--bd);
          color:var(--mu);font-size:.9rem}
   footer a{margin-right:.9rem}
+
+  /* Zrzuty ekranu. Ramka i delikatny cień oddzielają obraz od tła strony -
+     bez tego jasny zrzut zlewa się z jasnym motywem. */
+  figure{margin:1.75rem 0}
+  figure img{width:100%;height:auto;display:block;border:1px solid var(--bd);
+             border-radius:8px;background:var(--cd);
+             box-shadow:0 1px 6px rgba(0,0,0,.10)}
+  @media (prefers-color-scheme:dark){
+    figure img{box-shadow:0 1px 8px rgba(0,0,0,.45)}
+  }
+  :root[data-theme="dark"] figure img{box-shadow:0 1px 8px rgba(0,0,0,.45)}
+  :root[data-theme="light"] figure img{box-shadow:0 1px 6px rgba(0,0,0,.10)}
+  figcaption{color:var(--mu);font-size:.88rem;margin-top:.55rem;
+             text-align:center;line-height:1.5}
+  .hero{margin:2rem 0 2.5rem}
 </style>
 </head>
 <body>
@@ -75,6 +90,19 @@ citation markers do not.</p>
   <a class="cta" href="https://apps.microsoft.com/detail/9MTNRJM7HH7P">Get it on Microsoft Store</a>
   <a class="cta alt" href="help-en.html">User guide</a>
 </p>
+
+<figure class="hero">
+  <img src="assets/screenshot-2-before-after.png"
+       alt="Two editor windows side by side: the left one shows a web article
+            pasted with Ctrl+V, keeping its colours, highlights and links; the
+            right one shows the same article pasted with Ctrl+Shift+V, reduced
+            to plain formatting with headings, a bordered table and a numbered
+            list intact.">
+  <figcaption>The same article pasted twice. Left: <kbd>Ctrl</kbd>+<kbd>V</kbd>
+  brings the source colours, highlights and fonts along. Right:
+  <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> keeps the headings, table and
+  numbered list, and drops everything else.</figcaption>
+</figure>
 
 <h2>Three ways to paste</h2>
 
@@ -114,6 +142,28 @@ stands apart from single-purpose converters.</p>
       <code>**</code> clutter.</li>
 </ul>
 
+<figure>
+  <img src="assets/screenshot-4-markdown-out.png"
+       alt="A styled web article on the left and Notepad on the right showing
+            the same content converted to Markdown: a pipe table, a heading
+            marked with two hashes, a quote marked with a chevron and a link in
+            square-bracket notation.">
+  <figcaption>Document to Markdown. <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd>
+  turns the article on the left into the Markdown on the right - table, heading,
+  quote and link all in proper syntax, ready to paste into a chat
+  window.</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/screenshot-3-markdown.png"
+       alt="Notepad on the left holding raw Markdown, and an editor on the right
+            showing the same content as a finished document with headings, a
+            bordered table and a numbered list.">
+  <figcaption>Markdown to document. The raw notation on the left arrives on the
+  right as finished formatting - no stray hashes or asterisks left in the
+  text.</figcaption>
+</figure>
+
 <div class="ok">
 <p>Plain-text targets are unaffected. Notepad, VS Code and terminals still
 receive the Markdown exactly as it was, character for character.</p>
@@ -139,6 +189,31 @@ stripping anything.</p>
 Cyrillic, Greek, Chinese, Japanese, Korean, Arabic, Hebrew, Thai, Devanagari
 and emoji are all handled correctly. The interface itself is available in
 eight languages.</p>
+
+<h2>You decide what gets removed</h2>
+
+<p>Eight switches, all in one menu, each taking effect on the next paste. The
+defaults are deliberately conservative: only the three that improve every
+paste are on out of the box, and nothing carrying meaning is discarded until
+you ask for it.</p>
+
+<figure>
+  <img src="assets/screenshot-1-menu.png"
+       alt="The tray menu open over a document, listing switches for removing
+            links, square brackets, tables and images, plus deep HTML cleanup,
+            appending the source address, rendering Markdown and adding table
+            borders, with language, help and autostart entries below.">
+  <figcaption>The whole interface: one menu. Three switches are on by default -
+  deep cleanup, Markdown rendering and table borders.</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/screenshot-5-help.png"
+       alt="The built-in user guide open in a browser, showing a chapter about
+            the keyboard shortcuts.">
+  <figcaption>A full user guide ships with the application, in English and
+  Polish, available straight from the menu.</figcaption>
+</figure>
 
 <h2>Built to be trustworthy</h2>
 
