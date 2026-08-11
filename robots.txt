@@ -1,0 +1,15 @@
+# kdominikit.github.io
+#
+# Strona ma byc indeksowana w calosci - to jej zadanie. Wykluczamy tylko
+# dokumenty licencyjne skladnikow obcych: to setki kilobajtow cudzych tekstow
+# prawnych, ktore rozcienczaja tresc wlasna strony w oczach wyszukiwarki,
+# a uzytkownikowi szukajacemu programu nie sa do niczego potrzebne.
+# Strony te maja dodatkowo znacznik <meta name="robots" content="noindex, follow">,
+# bo Disallow w tym pliku sam w sobie NIE usuwa strony z indeksu - blokuje
+# jedynie jej pobranie.
+
+User-agent: *
+Allow: /
+Disallow: /*/third-party-licenses.html
+
+Sitemap: https://kdominikit.github.io/sitemap.xml
